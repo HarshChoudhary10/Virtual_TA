@@ -78,6 +78,41 @@ Two Python API scripts provide endpoints for querying the Virtual TA:
 
 ---
 
+### 5. Frontend Interface
+
+A modern, responsive web interface for interacting with the Virtual TA API:
+
+- **Location:** `frontend/` directory
+- **Files:**
+  - `index.html` - Main HTML structure
+  - `styles.css` - Styling and theme support (light/dark mode)
+  - `script.js` - JavaScript functionality and API integration
+  - `README.md` - Detailed frontend documentation
+
+- **Features:**
+  - 💬 Interactive chat interface
+  - 🖼️ Image upload with drag-and-drop support
+  - 🌓 Light/dark theme toggle
+  - 📱 Fully responsive design for mobile and desktop
+  - 💾 Automatic chat history saving
+  - 🔗 Clickable source links in responses
+  - 📋 Copy-to-clipboard functionality
+  - ⚡ Real-time loading indicators
+
+- **Quick Start:**
+  ```bash
+  # Open directly in browser
+  open frontend/index.html
+  
+  # Or serve with Python
+  cd frontend
+  python3 -m http.server 8080
+  ```
+
+For detailed frontend setup and deployment instructions, see `frontend/README.md`.
+
+---
+
 ## API
 
 - **Python Version:** 3.10.17
@@ -88,11 +123,22 @@ Two Python API scripts provide endpoints for querying the Virtual TA:
 
 ## How to Use
 
+### For End Users (Using the Frontend)
+
+1. **Open the frontend** by navigating to the `frontend/` directory and opening `index.html` in your browser, or serving it with a local server.
+2. **Click "Get Started"** to access the chat interface.
+3. **Ask questions** by typing in the input field and pressing Enter or clicking the send button.
+4. **Optional: Upload images** by clicking the 📎 icon to provide screenshots for better context.
+5. **View answers** with source links that you can click to verify information.
+
+### For Developers (Backend Setup)
+
 1. **Run the scraping scripts** to keep the knowledge base up-to-date.
 2. **Build the knowledge base** using `base_creation.py`.
 3. **Update the urls** using `updatelinks.py`.
 4. **Deploy the API** (`virtual_ta_api.py`).
-5. **Send POST requests** to the API endpoint with student questions and optional images to receive answers.
+5. **Configure the frontend** to point to your API endpoint (edit `frontend/script.js` if using a custom endpoint).
+6. **Send POST requests** to the API endpoint with student questions and optional images to receive answers.
 
 ---
 

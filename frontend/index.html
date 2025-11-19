@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TDS Virtual Teaching Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <h1>🎓 TDS Virtual TA</h1>
+                <p class="tagline">Your AI-Powered Teaching Assistant</p>
+            </div>
+            <div class="theme-toggle">
+                <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Welcome Section -->
+            <section class="welcome-section" id="welcomeSection">
+                <div class="welcome-content">
+                    <h2>Welcome to TDS Virtual Teaching Assistant</h2>
+                    <p>Get instant answers to your course-related questions, powered by AI and our comprehensive knowledge base.</p>
+                    
+                    <div class="features">
+                        <div class="feature-item">
+                            <span class="feature-icon">💬</span>
+                            <h3>Ask Questions</h3>
+                            <p>Get precise answers from course materials and forum discussions</p>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">🖼️</span>
+                            <h3>Upload Images</h3>
+                            <p>Include screenshots for better context using OCR technology</p>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">🔗</span>
+                            <h3>Source Links</h3>
+                            <p>Every answer includes verifiable source references</p>
+                        </div>
+                    </div>
+
+                    <div class="example-questions">
+                        <h3>Example Questions:</h3>
+                        <div class="examples-grid">
+                            <button class="example-btn" data-question="What is the TDS course about?">
+                                What is the TDS course about?
+                            </button>
+                            <button class="example-btn" data-question="How do I submit assignments?">
+                                How do I submit assignments?
+                            </button>
+                            <button class="example-btn" data-question="What are the course requirements?">
+                                What are the course requirements?
+                            </button>
+                            <button class="example-btn" data-question="How can I access course materials?">
+                                How can I access course materials?
+                            </button>
+                        </div>
+                    </div>
+
+                    <button class="cta-button" id="getStartedBtn">Get Started</button>
+                </div>
+            </section>
+
+            <!-- Chat Interface -->
+            <section class="chat-section" id="chatSection" style="display: none;">
+                <div class="chat-container">
+                    <!-- Chat History -->
+                    <div class="chat-history" id="chatHistory">
+                        <div class="chat-welcome">
+                            <p>👋 Hello! I'm your Virtual TA. Ask me anything about the TDS course!</p>
+                        </div>
+                    </div>
+
+                    <!-- Input Area -->
+                    <div class="input-area">
+                        <div class="image-preview" id="imagePreview" style="display: none;">
+                            <img id="previewImg" src="" alt="Image preview">
+                            <button class="remove-image" id="removeImage" aria-label="Remove image">×</button>
+                        </div>
+
+                        <form id="questionForm" class="question-form">
+                            <div class="input-wrapper">
+                                <textarea 
+                                    id="questionInput" 
+                                    class="question-input" 
+                                    placeholder="Ask your question here..."
+                                    rows="1"
+                                    required
+                                ></textarea>
+                                
+                                <div class="input-actions">
+                                    <label for="imageUpload" class="image-upload-btn" title="Upload image">
+                                        📎
+                                        <input 
+                                            type="file" 
+                                            id="imageUpload" 
+                                            accept="image/*"
+                                            style="display: none;"
+                                        >
+                                    </label>
+                                    
+                                    <button type="submit" class="send-btn" id="sendBtn" aria-label="Send question">
+                                        <span class="send-icon">➤</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="input-hints">
+                            <span>💡 Tip: You can upload images for better context</span>
+                            <button class="clear-history-btn" id="clearHistoryBtn">Clear History</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="back-to-home" id="backToHome">← Back to Home</button>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 TDS Virtual Teaching Assistant. Powered by AI.</p>
+        </footer>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+        <div class="loading-spinner"></div>
+        <p>Thinking...</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
