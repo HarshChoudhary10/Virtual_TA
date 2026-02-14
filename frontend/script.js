@@ -58,6 +58,15 @@ function debounce(func, wait) {
     };
 }
 
+// Helper function to create copy button
+function createCopyButton(text) {
+    const copyBtn = document.createElement('button');
+    copyBtn.className = 'copy-btn';
+    copyBtn.textContent = '📋 Copy';
+    copyBtn.onclick = () => copyToClipboard(text, copyBtn);
+    return copyBtn;
+}
+
 // Initialize App
 function init() {
     loadTheme();
@@ -161,11 +170,11 @@ function attachEventListeners() {
     });
 
     // Textarea auto-resize with debounce
-    const debouncedResize = debounce(autoResizeTextarea, 50);
-    elements.questionInput.addEventListener('input', () => {
-        debouncedResize();
+    const debouncedResize = debounce(() => {
+        autoResizeTextarea();
         updateCharCounter();
-    });
+    }, 50);
+    elements.questionInput.addEventListener('input', debouncedResize);
 
     // Enter key to submit (Shift+Enter for new line)
     elements.questionInput.addEventListener('keydown', (e) => {
@@ -397,34 +406,12 @@ function exportChat() {
         return;
     }
 
-    // Show export options
-    const format = confirm('Click OK to export as JSON, or Cancel to export as Text');
-    
-    if (format) {
-        // Export as JSON
-        const dataStr = JSON.stringify(state.chatHistory, null, 2);
-        const dataBlob = new Blob([dataStr], { type: 'application/json' });
-        downloadFile(dataBlob, 'chat-history.json');
-    } else {
-        // Export as Text
-        let textContent = 'TDS Virtual TA - Chat History\n';
-        textContent += '='.repeat(50) + '\n\n';
-        
-        state.chatHistory.forEach((msg, index) => {
-            textContent += `[${new Date(msg.timestamp).toLocaleString()}]\n`;
-            textContent += `${msg.role.toUpperCase()}: ${msg.text}\n`;
-            if (msg.links && msg.links.length > 0) {
-                textContent += 'Sources:\n';
-                msg.links.forEach(link => {
-                    textContent += `  - ${link.text || link.url}: ${link.url}\n`;
-                });
-            }
-            textContent += '\n' + '-'.repeat(50) + '\n\n';
-        });
-        
-        const dataBlob = new Blob([textContent], { type: 'text/plain' });
-        downloadFile(dataBlob, 'chat-history.txt');
-    }
+    // Default to JSON format, user can change in future
+    // Export as JSON
+    const dataStr = JSON.stringify(state.chatHistory, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const timestamp = new Date().toISOString().split('T')[0];
+    downloadFile(dataBlob, `chat-history-${timestamp}.json`);
     
     showToast('Chat history exported successfully', 'success');
 }
@@ -582,10 +569,19 @@ function addMessageToChat(role, text, image = null, links = null, isError = fals
     if (image && role === 'user') {
         const imgElement = document.createElement('img');
         imgElement.className = 'message-image';
-        imgElement.src = URL.createObjectURL(image);
+        const imageUrl = URL.createObjectURL(image);
+        imgElement.src = imageUrl;
         imgElement.alt = 'Uploaded image';
         imgElement.style.cursor = 'pointer';
-        imgElement.onclick = () => openImageZoom(URL.createObjectURL(image));
+        imgElement.onclick = () => openImageZoom(imageUrl);
+        // Add keyboard support for accessibility
+        imgElement.tabIndex = 0;
+        imgElement.onkeydown = (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openImageZoom(imageUrl);
+            }
+        };
         content.appendChild(imgElement);
     }
 
@@ -618,11 +614,7 @@ function addMessageToChat(role, text, image = null, links = null, isError = fals
     }
 
     // Copy button for all messages
-    const copyBtn = document.createElement('button');
-    copyBtn.className = 'copy-btn';
-    copyBtn.textContent = '📋 Copy';
-    copyBtn.onclick = () => copyToClipboard(text, copyBtn);
-    content.appendChild(copyBtn);
+    content.appendChild(createCopyButton(text));
 
     messageDiv.appendChild(content);
     elements.chatHistory.appendChild(messageDiv);
@@ -733,11 +725,7 @@ function loadChatHistory() {
                 }
 
                 // Copy button
-                const copyBtn = document.createElement('button');
-                copyBtn.className = 'copy-btn';
-                copyBtn.textContent = '📋 Copy';
-                copyBtn.onclick = () => copyToClipboard(msg.text, copyBtn);
-                content.appendChild(copyBtn);
+                content.appendChild(createCopyButton(msg.text));
 
                 messageDiv.appendChild(content);
                 elements.chatHistory.appendChild(messageDiv);
