@@ -1,1 +1,54 @@
-<textarea id="questionInput" placeholder="Ask your question here or upload an image..."></textarea>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual TA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="logo.png" alt="Logo" />
+            <button id="theme-toggle">Toggle Theme</button>
+        </header>
+        <main>
+            <section id="welcome">
+                <h1>Welcome to Virtual TA</h1>
+                <h2>Features</h2>
+                <ul>
+                    <li>Example Question 1</li>
+                    <li>Example Question 2</li>
+                </ul>
+            </section>
+            <div id="chat-section">
+                <div id="chat-history"></div>
+                <div id="typing-indicator"></div>
+                <div id="image-preview"></div>
+                <form id="question-form">
+                    <textarea id="question-input"></textarea>
+                    <button type="button" id="voice-button">🎤</button>
+                    <input type="file" id="image-upload" />
+                    <button type="submit" id="send-button">Send</button>
+                    <div id="input-hints">0/200</div>
+                    <button type="button" id="export-button">Export</button>
+                    <button type="button" id="clear-button">Clear</button>
+                </form>
+                <button id="back-to-home">Back to Home</button>
+                <button id="scroll-to-bottom">Scroll to Bottom</button>
+            </div>
+        </main>
+        <footer>
+            <p>© 2026 Virtual TA. All Rights Reserved.</p>
+        </footer>
+    </div>
+    <div id="toast-container"></div>
+    <div id="loading-overlay"></div>
+    <div id="image-zoom-modal"></div>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
